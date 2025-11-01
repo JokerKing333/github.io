@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>思念与关心</title>
+    <title>温馨提示</title>
     <style>
         .initial-window {
             position: fixed;
@@ -45,7 +45,6 @@
             justify-content: center;
             transition: all 3s ease-out; /* 消失更慢 */
             opacity: 1;
-            /* 固定尺寸减少重叠，不拥挤 */
             width: 120px;
             height: 60px;
         }
@@ -63,32 +62,25 @@
 </head>
 <body>
     <div class="initial-window" id="initialWindow">
-        <div class="initial-text">点击关闭，接收我的思念与关心~</div>
+        <div class="initial-text">点击关闭，接收温馨提示~</div>
         <button class="close-btn" id="closeBtn">关闭</button>
     </div>
     <div id="tipContainer"></div>
-
     <script>
-        // 专属暖心话：思念+健康关心类
+        // 补充后的暖心话列表
         const warmTips = [
-            "我想你了，很想很想", "注意身体，别太累啦",
-            "记得多喝水，照顾好自己", "我在想你呀，你知道吗",
-            "别熬夜，早点休息呀", "天冷添衣，别着凉啦",
-            "思念攒了好多，想告诉你", "三餐规律，好好吃饭",
-            "我想你，不止今天", "累了就歇会儿，别硬扛",
-            "愿你平安健康，我很牵挂", "想和你说说话，念你啦",
-            "注意保暖，别感冒呀", "我的思念，你收到了吗",
-            "少玩手机，保护眼睛", "想你啦，每分每秒",
-            "别太拼，身体最重要", "我在等你，也在想你",
-            "记得吃水果，补充维生素", "思念如潮，涌向你呀",
-            "保持好心情，健康常伴", "我想你，是藏不住的念",
-            "多喝温水，对肠胃好", "想见到你，抱抱你呀",
-            "别焦虑，慢慢来，我陪着你", "注意休息，别透支身体",
-            "我想你，不止在梦里", "天气变化，记得增减衣物",
-            "照顾好自己，我才放心", "对你的思念，从未停过",
-            "适当运动，增强体质呀"
+            '多喝水哦~', '保持微笑呀', '每天都要元气满满',
+            '记得吃水果', '保持好心情', '好好爱自己', '我想你了',
+            '梦想成真', '期待下一次见面', '金榜题名',
+            '顺顺利利', '早点休息', '愿所有烦恼都消失',
+            '别熬夜', '今天过得开心嘛', '天冷了，多穿衣服', '晚安',
+            '多吃蔬菜呀', '按时吃饭哦', '少喝冷饮哦',
+            '每天都要开开心心', '别emo啦，你超棒的', '保持正能量哦',
+            '出门记得带伞', '睡前泡个脚很舒服', '记得涂护手霜',
+            '事事顺心哦', '好运常伴你', '每天都有小惊喜',
+            '想你啦，快出现', '很想很想你哦', '照顾好自己呀'
         ];
-        // 温柔低饱和色，不刺眼
+        // 温柔背景色列表
         const bgColors = [
             'mistyrose', 'lightskyblue', 'palegreen', 'lavender', 'cornsilk',
             'plum', 'peachpuff', 'lightcyan', 'honeydew', 'pink',
@@ -106,18 +98,18 @@
         function createWarmTip() {
             const tipDiv = document.createElement('div');
             tipDiv.className = 'warm-tip';
-            // 随机选专属暖心话和颜色
             const randomTip = warmTips[getRandom(0, warmTips.length - 1)];
             const randomColor = bgColors[getRandom(0, bgColors.length - 1)];
             tipDiv.style.backgroundColor = randomColor;
             tipDiv.innerHTML = `<div class="warm-text">${randomTip}</div>`;
-            // 随机位置，避开边缘，减少重叠
-            const maxLeft = window.innerWidth - 120; // 对应固定宽度
-            const maxTop = window.innerHeight - 60; // 对应固定高度
-            tipDiv.style.left = `${getRandom(20, maxLeft - 20)}px`; // 留边距
+            
+            const maxLeft = window.innerWidth - 120;
+            const maxTop = window.innerHeight - 60;
+            tipDiv.style.left = `${getRandom(20, maxLeft - 20)}px`;
             tipDiv.style.top = `${getRandom(20, maxTop - 20)}px`;
+            
             tipContainer.appendChild(tipDiv);
-            // 停留3秒，再用3秒缓慢消失（全程可见6秒）
+
             setTimeout(() => {
                 tipDiv.classList.add('fade-away');
                 setTimeout(() => tipDiv.remove(), 3000);
@@ -126,13 +118,11 @@
 
         closeBtn.addEventListener('click', () => {
             initialWindow.style.display = 'none';
-            // 50个窗口，200ms间隔弹出（分10秒陆续出现，不拥挤）
             for (let i = 0; i < 50; i++) {
                 setTimeout(createWarmTip, i * 200);
             }
         });
 
-        // 手机端触摸适配
         closeBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             closeBtn.click();
